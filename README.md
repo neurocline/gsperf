@@ -40,13 +40,15 @@ Doing 256K reads...73096 in 1.99 sec
 256K reads: 9218.50 MB/sec
 ```
 
-## Mac version requires sudo at the moment
+## Important notes
+
+### Mac version requires sudo at the moment
 
 Physical disk performance tests are challenging, because modern operating systems
 are good at caching, because that's one of the keys to being fast, or even usable.
 
 However, for the Mac version, at the moment, you need to run gsperf with sudo if you want
-to do the `--disk-physical` test, e.g. 
+to do the `--disk-physical` test, e.g.
 
 ```
 $ sudo ./gsperf --disk-physical
@@ -54,6 +56,14 @@ $ sudo ./gsperf --disk-physical
 
 This is because I use the `usr/bin/purge` tool to reset the disk cache, and that
 requires admin access. This is temporary, but the fix is a fair amount of code.
+
+### Physical disk test creates and leaves 8GB test file on system
+
+The physical disk test reads from a file rather than directly accessing the
+hard disk. It creates a fairly large file in order to read large amounts of data,
+and it leaves that file in place for doing repeated tests.
+
+I hope to remove this need from the code soon.
 
 ## Why this project?
 

@@ -33,6 +33,9 @@ func diskPhysicalPerf(enabled bool) {
 		fmt.Fprintf(os.Stderr, "Creating large file (will not be deleted)...")
 		fh = createTestFile(path, bigFileSize)
 		fmt.Fprintf(os.Stderr, "\n")
+		fh.Close()
+		time.Sleep(500 * time.Millisecond)
+		fh, err = os.Open(path)
 	}
 
 	// Read in various chunk sizes
